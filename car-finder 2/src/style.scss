@@ -1,71 +1,166 @@
-// Import any required fonts or reset styles
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+// Import Open Sans font
+@use 'sass:map';
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;700&display=swap');
+
+// Color variables
+$colors: (
+  'primary-header': rgb(255, 255, 255),
+  'subtext': rgb(211, 211, 211),
+  'form-panel-bg': rgb(242, 242, 242),
+  'form-blue': rgb(52, 143, 188),
+  'form-disabled': rgb(144, 144, 144),
+  'selected-option': rgb(33, 33, 33),
+  'border': rgba(0, 0, 0, 0.1)
+);
+
+// Typography
+$font-weights: (
+  'medium': 500,
+  'bold': 700
+);
+
+// Mixins
+@mixin panel-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+@mixin transition-smooth {
+  transition: all 0.3s ease-in-out;
+}
+
+@mixin focus-state {
+  &:focus {
+    outline: none;
+    border-color: map.get($colors, 'form-blue');
+    box-shadow: 0 0 0 2px rgba(map.get($colors, 'form-blue'), 0.2);
+  }
+}
 
 // Base styles
 body {
-  font-family: 'Roboto', sans-serif;
-  background: url('./assets/bg.jpg') no-repeat center center fixed;
+  font-family: 'Open Sans', sans-serif;
+  background-color: map.get($colors, 'form-panel-bg');
+  background-image: url('/src/assets/bg.jpg'); // Adjust path as needed
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   margin: 0;
   padding: 0;
+  color: map.get($colors, 'selected-option');
+  line-height: 1.5;
 }
 
-// Container for the dropdowns
+// Container styles
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  background-color: rgba(255, 255, 255, 0.8); // Semi-transparent background
-  padding: 20px;
+  padding: 2rem;
   box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-// Styling for the dropdown selects
-select {
-  width: 300px;
-  padding: 10px;
-  margin: 10px 0;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+// Form elements
+.form-group {
+  width: 100%;
+  max-width: 480px;
+  margin-bottom: 1.5rem;
 }
 
-// Disabled select styling
-select:disabled {
-  background-color: #e0e0e0;
-}
-
-// Styling for labels
 label {
-  font-weight: bold;
-  color: #333;
+  display: block;
+  font-weight: map.get($font-weights, 'medium');
+  margin-bottom: 0.5rem;
+  color: map.get($colors, 'selected-option');
 }
 
-// Vehicle information display
-#vehicle-info {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #ffffffcc;
-  width: 80%;
-  max-width: 600px;
-  border: 1px solid #ccc;
+select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: map.get($font-weights, 'medium');
+  color: map.get($colors, 'selected-option');
+  background-color: map.get($colors, 'primary-header');
+  border: 1px solid map.get($colors, 'border');
   border-radius: 4px;
+  cursor: pointer;
+  @include transition-smooth;
+  @include panel-shadow;
+  @include focus-state;
+
+  &:disabled {
+    background-color: map.get($colors, 'form-disabled');
+    color: rgba(map.get($colors, 'primary-header'), 0.7);
+    cursor: not-allowed;
+    border-color: transparent;
+  }
+
+  option {
+    font-weight: map.get($font-weights, 'medium');
+    
+    &:checked {
+      background-color: map.get($colors, 'form-blue');
+      color: map.get($colors, 'primary-header');
+    }
+  }
 }
 
-// Vehicle information headings
-#vehicle-info h2 {
-  margin-top: 0;
+// Vehicle information panel
+#vehicle-info {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: map.get($colors, 'primary-header');
+  border-radius: 8px;
+  @include panel-shadow;
+
+  h2 {
+    color: map.get($colors, 'selected-option');
+    font-weight: map.get($font-weights, 'bold');
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: map.get($colors, 'subtext');
+    margin: 0.5rem 0;
+  }
 }
 
 // Responsive adjustments
-@media (max-width: 600px) {
-  select {
-    width: 100%;
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
   }
 
+  .form-group,
   #vehicle-info {
-    width: 100%;
+    max-width: 100%;
   }
+
+  select {
+    padding: 0.875rem;
+  }
+}
+
+// Utility classes
+.text-primary {
+  color: map.get($colors, 'selected-option');
+}
+
+.text-secondary {
+  color: map.get($colors, 'subtext');
+}
+
+.bg-panel {
+  background-color: map.get($colors, 'form-panel-bg');
+}
+
+.form-blue {
+  color: map.get($colors, 'form-blue');
 }
