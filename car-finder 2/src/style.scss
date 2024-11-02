@@ -1,0 +1,71 @@
+// Import any required fonts or reset styles
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+// Base styles
+body {
+  font-family: 'Roboto', sans-serif;
+  background: url('./assets/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+// Container for the dropdowns
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8); // Semi-transparent background
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+// Styling for the dropdown selects
+select {
+  width: 300px;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+// Disabled select styling
+select:disabled {
+  background-color: #e0e0e0;
+}
+
+// Styling for labels
+label {
+  font-weight: bold;
+  color: #333;
+}
+
+// Vehicle information display
+#vehicle-info {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #ffffffcc;
+  width: 80%;
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+// Vehicle information headings
+#vehicle-info h2 {
+  margin-top: 0;
+}
+
+// Responsive adjustments
+@media (max-width: 600px) {
+  select {
+    width: 100%;
+  }
+
+  #vehicle-info {
+    width: 100%;
+  }
+}
